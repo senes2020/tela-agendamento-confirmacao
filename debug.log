@@ -1,0 +1,7 @@
+[0623/120250.478:ERROR:process_info.cc(329)] VirtualQueryEx: Acesso negado. (0x5)
+[0623/120250.491:ERROR:process_info.cc(556)] ReadMemoryInfo failed
+[0623/120250.478:ERROR:process_reader_win.cc(123)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido. (0xc0000022)
+[0623/120250.478:ERROR:process_reader_win.cc(123)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido. (0xc0000022)
+[0623/120250.515:ERROR:exception_snapshot_win.cc(98)] thread ID 1344 not found in process
+[0623/120250.515:ERROR:exception_snapshot_win.cc(98)] thread ID 3920 not found in process
+[0623/120250.491:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Tentou-se acessar um processo de saída. (0xc000010a)
