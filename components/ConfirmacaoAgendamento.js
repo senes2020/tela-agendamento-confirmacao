@@ -1,17 +1,14 @@
 import React, {useState, useEffect}  from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-const ConfirmacaoAgendamento = ( {navigation}, props) =>{
 
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate('ConfirmacaoAgendamento')
-        }, 3000)
-    })
-    
+const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
+
+  const {dataInicio} = route.params;
+
     const conclusaoAgendamento = () => {
       navigation.navigate('ConclusaoAgendamento');
     }
@@ -96,22 +93,7 @@ const ConfirmacaoAgendamento = ( {navigation}, props) =>{
             source={require('../assets/images/inicio.png')}
           />
         <View style={styles.datepicker}>
-          <Button
-          onPress={showDatepicker} title="Escolha a data para o início" />
-        </View>
-        <View style={styles.datepicker_fim}>
-          <Button onPress={showTimepicker} title="Escolha o horário para o início" />
-        </View>
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
+         </View>
 
         <Text style={styles.text_information_fim}>
             Fim
@@ -140,7 +122,7 @@ const ConfirmacaoAgendamento = ( {navigation}, props) =>{
         )}
 
         <Text style={styles.text_carro}>
-          Carro?
+          Possui carro?
         </Text>  
         <Text style={styles.text_valor}>
           Valor Total: R$ 

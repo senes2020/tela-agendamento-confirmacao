@@ -1,27 +1,42 @@
-import React, {useState, useEffect}  from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, {useState, useEffect, Component}  from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Button } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
-const Proposta = ( {route, navigation}, props) =>{
+const Proposta = ( {route, navigation}, props) => {
 
 const confirmacao = () => {
-  navigation.navigate('ConfirmacaoAgendamento');
+
+  navigation.navigate('ConfirmacaoAgendamento',
+  {
+    dataInicio: date
+           
+  });
+}
+
+const datecal = () => {
+  navigation.navigate('DateCal');
 }
 
   //Fonte de letra
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [isLoadingComplete, setLoadingComplete, isDatePickerVisible, 
+            setDatePickerVisibility] = useState(false);
 
   //Datetimepicker
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+  const onChange = (selectedDate) => {
+    //Variável que guarda a data e horário em formato de objeto Date
+    const currentDate = new Date(selectedDate.nativeEvent.timestamp);
     setShow(Platform.OS === 'ios');
+    
+    //Atualiza o state  
     setDate(currentDate);
+
+    //mostra no console o que foi selecionado
+    console.log(currentDate)
   };
 
   const showMode = currentMode => {
@@ -35,7 +50,7 @@ const confirmacao = () => {
 
   const showTimepicker = () => {
     showMode('time');
-  };          
+  };         
 
   //Fonte
     if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -77,53 +92,13 @@ const confirmacao = () => {
         </Text>
   
         <View style={styles.container_information}>
+        <TouchableOpacity
+         style={styles.button_agendar}
+          onPress={datecal}>
           <Text style={styles.text_information}>
-            Início
+            Selecionar data e horário.
           </Text>
-          <Image
-            style={styles.image}
-            source={require('../assets/images/inicio.png')}
-          />
-        <View style={styles.datepicker}>
-          <Button
-          onPress={showDatepicker} title="Escolha a data para início" />
-        </View>
-        <View style={styles.datepicker_fim}>
-          <Button onPress={showTimepicker} title="Escolha o horário para início" />
-        </View>
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
-
-        <Text style={styles.text_fim}>
-            Fim
-        </Text>
-          <Image
-            style={styles.image_fim}
-            source={require('../assets/images/fim.png')}
-          />
-    
-      <View style={styles.datepicker_fim}>
-        <Button onPress={showTimepicker} title="Escolha o horário para o término" />
-      </View>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-          />
-        )}
-
+        </TouchableOpacity>
         <Text style={styles.text_pagamento}>
           Forma de Pagamento
         </Text>
@@ -197,7 +172,7 @@ const styles = StyleSheet.create({
     color: '#005E80',
     letterSpacing: 1,
     marginBottom: 30,
-    paddingTop: 15,
+    paddingTop: 10,
   },
 
   text_pagamento: {
