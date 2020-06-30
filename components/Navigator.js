@@ -32,7 +32,7 @@ export default function MyStack(){
                     name="DateCal"
                     component={DateCal}
                     options={{headerShown: false}}
-                    /> 
+                    />
             </Stack.Navigator>
         </NavigationContainer>
     )

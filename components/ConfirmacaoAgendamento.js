@@ -1,16 +1,22 @@
 import React, {useState, useEffect}  from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import Icon from "react-native-vector-icons/FontAwesome";
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+import Proposta from './Proposta';
 
 const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
 
-  const {dataInicio} = route.params;
+  const {dataselecionada} = route.params;
+  console.log(dataselecionada);
 
     const conclusaoAgendamento = () => {
       navigation.navigate('ConclusaoAgendamento');
+    }
+
+    const voltar = () => {
+      navigation.navigate('Proposta');
     }
 
   //Fonte de letra
@@ -74,6 +80,12 @@ const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
   return (
     <View style={styles.container}>
       <View style={styles.container_card}>
+        <TouchableOpacity style={styles.close}
+        onPress={voltar}
+        >
+        <Image 
+          source={require('../assets/images/close.png')}/>
+        </TouchableOpacity>
         <Text style={styles.text_title}>CONFIRMAÇÃO</Text>
         <Text style={styles.text_card}> 
           Confirme se as informações estão corretas.
@@ -93,6 +105,7 @@ const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
             source={require('../assets/images/inicio.png')}
           />
         <View style={styles.datepicker}>
+          <Text>DATA {dataselecionada}</Text>
          </View>
 
         <Text style={styles.text_information_fim}>
@@ -102,25 +115,7 @@ const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
             style={styles.image_fim}
             source={require('../assets/images/fim.png')}
           />
-           <View style={styles.datepicker}>
-        <Button
-          onPress={showDatepicker} title="Escolha a data para o término" />
-      </View>
-      <View style={styles.datepicker_fim}>
-        <Button onPress={showTimepicker} title="Escolha o horário para o término" />
-      </View>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            format="DD/MM/YYYY"
-            onChange={onChange}
-          />
-        )}
-
+     
         <Text style={styles.text_carro}>
           Possui carro?
         </Text>  
@@ -159,7 +154,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontFamily: 'montserrat-negrito',
     textAlign: 'center',
-    paddingTop: 10,
     color: '#005E80',
   },
 
@@ -176,7 +170,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 5,
+    marginTop: 30,
   },
 
   text_information_fim: {
@@ -185,6 +179,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
+    marginTop: 60,
   },
 
   text_nome: {
@@ -202,25 +197,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginBottom: 10,
+    marginTop: 10,
   },
 
   text_carro: {
     fontSize: 20,
     fontFamily: 'montserrat-regular-texto',
-    marginLeft: 50,
+    textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 10,
+    marginTop: 75,
   },
 
   text_valor: {
     fontSize: 20,
     fontFamily: 'montserrat-negrito',
-    marginLeft: 20,
+    marginLeft: 30,
     color: 'black',
     letterSpacing: 1,
-    marginTop: 15,
+    marginTop: 35,
   },
 
   container_card: {
@@ -288,6 +283,12 @@ datepicker_fim: {
   width: 280,
   marginBottom: 10,
   alignSelf: "center",
+},
+
+close: {
+  marginLeft: 5,
+  marginBottom: -10,
+  paddingTop: -60,
 },
 
 });

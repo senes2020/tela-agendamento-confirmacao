@@ -93,10 +93,10 @@ const datecal = () => {
   
         <View style={styles.container_information}>
         <TouchableOpacity
-         style={styles.button_agendar}
+         style={styles.button_date}
           onPress={datecal}>
           <Text style={styles.text_information}>
-            Selecionar data e horário.
+            Toque para selecionar data e horário
           </Text>
         </TouchableOpacity>
         <Text style={styles.text_pagamento}>
@@ -104,7 +104,7 @@ const datecal = () => {
         </Text>
         <Image
             style={styles.image_money}
-            source={require('../assets/images/money.png')}
+            source={require('../assets/images/dinheiro-icone.png')}
           />
            <Image
             style={styles.image_card}
@@ -142,27 +142,26 @@ const styles = StyleSheet.create({
 
   text_title: {
     fontSize: 21,
-    paddingBottom: 20,
+    paddingBottom: 40,
     fontFamily: 'montserrat-negrito',
     textAlign: 'center',
-    paddingTop: 20,
+    paddingTop: 40,
     color: '#005E80',
   },
 
   text_card: {
     fontSize: 18,
     fontFamily: 'montserrat-titulo',
-    textAlign: 'center',    
+    textAlign: 'center',
     height: 60, 
   },
 
   text_information: {
     fontSize: 20,
-    fontFamily: 'montserrat-regular-texto',
+    fontFamily: 'montserrat-negrito',
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 20,
   },
 
   text_fim: {
@@ -181,16 +180,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 20,
+    marginTop: 40,
   },
 
   text_valor: {
     fontSize: 20,
-    fontFamily: 'montserrat-regular-texto',
-    marginLeft: 50,
+    fontFamily: 'montserrat-negrito',
+    marginLeft: 80,
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 10,
+    marginTop: -60,
   },
 
   text_agendar: {
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
 
   container_card: {
     backgroundColor: "#fff",
-    height: 530,
+    height: 510,
     width: 380,
     borderWidth: 1,
     borderColor: '#005E80',
@@ -231,24 +230,23 @@ const styles = StyleSheet.create({
 },
 
 image_money: {
-  width: 70,
-  height: 70,
-  marginLeft: 80,
+  width: 65,
+  height: 65,
+  marginLeft: 70,
+  marginTop: 30,
 },
 
 image_card: {
-  width: 70,
-  height: 70,
-  marginLeft: 180,
-  marginVertical: -70,
+  width: 95,
+  height: 95,
+  marginLeft: 170,
+  marginVertical: -80,
 },
 
 image_fim: {
   width: 35,
   height: 35,
   marginLeft: 180,
-  marginVertical: -60,
-  marginBottom: -5,
 },
 
 datepicker: {
@@ -262,15 +260,24 @@ datepicker_fim: {
   paddingTop: 10,
 },
 
-button_agendar: {
+button_date: {
   width: 300,
   height: 50,
-  borderColor: '#005E80',
-  borderWidth: 2,
   borderRadius: 20,
   marginTop: 20,
   textAlign: "center",
 },
+
+button_agendar: {
+  width: 250,
+  height: 50,
+  borderColor: '#005E80',
+  backgroundColor: '#fff',
+  borderWidth: 1.5,
+  borderRadius: 15,
+  marginTop: 25,
+  textAlign: "center",
+}
 
 });
 
