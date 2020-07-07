@@ -7,11 +7,8 @@ const Proposta = ( {route, navigation}, props) => {
 
 const confirmacao = () => {
 
-  navigation.navigate('ConfirmacaoAgendamento',
-  {
-    dataInicio: date
-           
-  });
+  navigation.navigate('ConfirmacaoAgendamento', {dataInicio: route.params.dataInicio, 
+                  horarioInicio: route.params.horarioInicio, horarioFim: route.params.horarioFim})
 }
 
 const datecal = () => {
@@ -19,40 +16,8 @@ const datecal = () => {
 }
 
   //Fonte de letra
-  const [isLoadingComplete, setLoadingComplete, isDatePickerVisible, 
-            setDatePickerVisibility] = useState(false);
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  //Datetimepicker
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-
-  const onChange = (selectedDate) => {
-    //Variável que guarda a data e horário em formato de objeto Date
-    const currentDate = new Date(selectedDate.nativeEvent.timestamp);
-    setShow(Platform.OS === 'ios');
-    
-    //Atualiza o state  
-    setDate(currentDate);
-
-    //mostra no console o que foi selecionado
-    console.log(currentDate)
-  };
-
-  const showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };         
-
-  //Fonte
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return (
             <AppLoading
@@ -112,7 +77,7 @@ const datecal = () => {
           />
         </View>
         <Text style={styles.text_valor}>
-          Valor Total: R$ 
+          Valor Total: R$
         </Text>
       </View>
       <TouchableOpacity

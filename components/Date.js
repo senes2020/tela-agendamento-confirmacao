@@ -9,25 +9,27 @@ import {
   Platform,
 } from "react-native";
 
-import { format } from "date-fns";
+import { format, isThisSecond } from "date-fns";
 import Icon from "react-native-vector-icons/FontAwesome";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput } from "react-native-gesture-handler";
 
 class DateCal extends Component {
+  
   statetime = {
     yourValue: '',
   };
- 
+
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       data: new Date("2020/06/30"),
       confirmDisabled: true,
+      TextInputValueHolder: ''
     };
     this.isIos = Platform.OS === "ios";
   }
-
+ 
   validado = () => {
     const { data } = this.state;
     if (!data) {
@@ -53,7 +55,15 @@ class DateCal extends Component {
   render() {
     const { showDatePicker } = this.state;
     const { navigation } = this.props;
-    
+    const { horarioInicio }  = this.state;
+    const { horarioFim }  = this.state;
+
+    const navegar = () => {
+      navigation.navigate('Proposta', {dataInicio: this.state.data, 
+                    horarioInicio: this.state.horarioInicio,
+                    horarioFim: this.state.horarioFim})
+    }
+
     return (
       <KeyboardAvoidingView
         behavior={this.isIos ? "padding" : "height"}
@@ -111,18 +121,26 @@ class DateCal extends Component {
                underlineColorAndroid = "transparent"
                placeholder = "Digite um horário para início"
                placeholderTextColor = "#fff"
-               autoCapitalize = "none">
+               autoCapitalize = "none"
+               keyboardType="numeric"
+               value={this.state.horarioInicio}
+               onChangeText={(texto) => this.setState({horarioInicio:texto})}
+               maxLength={5}
+               >
             </TextInput>
 
             <TextInput style={styles.horario_fim}
                underlineColorAndroid = "transparent"
                placeholder = "Digite um horário para término"
                placeholderTextColor = "#fff"
-               autoCapitalize = "none">
+               keyboardType="numeric"
+               value={this.state.horarioFim}
+               onChangeText={(texto) => this.setState({horarioFim:texto})}
+               maxLength={5}>
             </TextInput>
 
               <TouchableOpacity
-                style={styles.button_agendar}>
+                style={styles.button_agendar} onPress={navegar}>
                 <Text style={styles.text_information}>
                   Continuar
                 </Text>

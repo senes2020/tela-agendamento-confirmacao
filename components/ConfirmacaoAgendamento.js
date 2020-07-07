@@ -1,15 +1,15 @@
 import React, {useState, useEffect}  from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import Proposta from './Proposta';
+import { format } from "date-fns";
 
 const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
 
-  const {dataselecionada} = route.params;
-  console.log(dataselecionada);
+   const {dataInicio, horarioInicio, horarioFim} = route.params;
 
     const conclusaoAgendamento = () => {
       navigation.navigate('ConclusaoAgendamento');
@@ -22,31 +22,6 @@ const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
   //Fonte de letra
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  //Datetimepicker
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
-
-  const showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  }; 
-
-  //Fonte
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return (
             <AppLoading
@@ -97,15 +72,20 @@ const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
           Stephanie Toledo
           </Text>
         <View style={styles.container_information}>
-          <Text style={styles.text_information}>
-            Início
-          </Text>
+          <View style={styles.container_inicio}>
+            <Text style={styles.text_information}>
+              Início
+            </Text>
+          
           <Image
             style={styles.image}
             source={require('../assets/images/inicio.png')}
           />
-        <View style={styles.datepicker}>
-          <Text>DATA {dataselecionada}</Text>
+        <View style={styles.date}>
+          <Text style={styles.dataescolhida}>
+            Data: {format(dataInicio, "dd/MM/yyyy")}
+          </Text>
+          <Text style={styles.text_horainicio}>Horário de início: {horarioInicio}</Text>
          </View>
 
         <Text style={styles.text_information_fim}>
@@ -115,7 +95,9 @@ const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
             style={styles.image_fim}
             source={require('../assets/images/fim.png')}
           />
-     
+        <View style={styles.datefim}>
+          <Text style={styles.text_horafim}>Horário do término: {horarioFim}</Text>
+        </View>
         <Text style={styles.text_carro}>
           Possui carro?
         </Text>  
@@ -123,6 +105,7 @@ const ConfirmacaoAgendamento = ( {route, navigation}, props) =>{
           Valor Total: R$ 
         </Text>
       </View>
+    </View>
     </View>
       <TouchableOpacity
         style={styles.button_agendar}
@@ -170,7 +153,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 30,
+    paddingTop: 8,
+  },
+
+  container_inicio: {
+    marginTop: 10,
   },
 
   text_information_fim: {
@@ -179,7 +166,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 60,
+    marginTop: 20,
   },
 
   text_nome: {
@@ -197,7 +184,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 10,
   },
 
   text_carro: {
@@ -206,7 +192,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#005E80',
     letterSpacing: 1,
-    marginTop: 75,
+    marginTop: 20,
   },
 
   text_valor: {
@@ -215,12 +201,12 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     color: 'black',
     letterSpacing: 1,
-    marginTop: 35,
+    marginTop: 30,
   },
 
   container_card: {
     backgroundColor: "#fff",
-    height: 540,
+    height: 550,
     width: 380,
     borderWidth: 1,
     borderColor: '#005E80',
@@ -268,7 +254,7 @@ button_agendar: {
   borderColor: '#005E80',
   borderWidth: 2,
   borderRadius: 20,
-  marginTop: 20,
+  marginTop: 10,
   textAlign: "center",
 },
 
@@ -279,10 +265,49 @@ datepicker: {
   alignSelf: "center",
 },
 
+dataescolhida: {
+  fontSize: 19,
+  textAlign: 'center',
+},
+
+date: {
+  backgroundColor: "#B0C4DE",
+  borderWidth: 1,
+  borderRadius: 7,
+  height: 70,
+  width: 240,
+  marginLeft: 35,
+  paddingTop: 4,
+  marginTop: 30,
+},
+
+datefim: {
+  backgroundColor: "#B0C4DE",
+  borderWidth: 1,
+  borderRadius: 7,
+  height: 40,
+  width: 260,
+  marginLeft: 30,
+  paddingTop: 4,
+  marginTop: 30,
+},
+
 datepicker_fim: {
   width: 280,
   marginBottom: 10,
   alignSelf: "center",
+},
+
+text_horainicio: {
+  marginTop: 10,
+  textAlign: 'center',
+  fontSize: 20,
+},
+
+text_horafim: {
+  marginTop: 3,
+  textAlign: 'center',
+  fontSize: 20,
 },
 
 close: {
